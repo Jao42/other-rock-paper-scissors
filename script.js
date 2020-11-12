@@ -1,40 +1,59 @@
-function getWinner(userPlay) {
+choices = ['rock', 'paper', 'scissors']
+let winner;
+
+function getRoundWinner(userPlay) {
   computerPlay = getComputerPlay();
-
-  if (computerPlay == userPlay) {
-
+  if (computerPlay === userPlay) {
     return 'tie!';
+
+  } 
+  else if ((computerPlay === 0 && userPlay === 2) ||
+      (computerPlay === 1 && userPlay === 0) ||
+      (computerPlay === 2 && userPlay === 1)) {
+    
+    return 'computer';
   }
+  
+  else {
+    return 'user';
+  } 
 
-  else if (computerPlay === 'rock' && userPlay != 'paper') {
-
-    return ('computer wins!');
-  }
-  else if (computerPlay === 'paper' &&  userPlay != 'scissors') {
-
-    return ('computer wins!');
-  }
-  else if (computerPlay === 'scissors' && userPlay != 'rock') {
-
-    return ('computer wins!');
 }
-
-  else {return ('user wins!');} 
-}
-
 
 function getComputerPlay() {
-  let choice = Math.round(Math.random() * 2);
-  if (choice === 0) {
-    return 'rock';
-    }
-  else if (choice == 1) {
-    return 'paper';
-    }
-  else {
-    return 'scissors';
-  }
-
+  const computerChoice = Math.round(Math.random() * 2);
+  return computerChoice;
 }
+
+
+let contUser = 0;
+let contComputer = 0;
+
+function MD(n) {
+  while (contComputer < Math.ceil(n/2) && contUser < Math.ceil(n/2)) {
+    winner = getRoundWinner(parseInt(prompt()));
+
+    if (winner === 'computer') {
+      contComputer++;
+    }
+
+    else if (winner === 'user') {
+      contUser++;
+    }
+
+    if (winner != 'tie!') {
+    alert(`${winner} wins!\n${contUser}x${contComputer}`);
+    }
+
+    else {
+      alert('tie!');
+    }
+  }
+}
+
+MD(5);
+
+if (contComputer > contUser) {alert('computer Wins!')}
+else {alert('User Wins!');}
 
 
