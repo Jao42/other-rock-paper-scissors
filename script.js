@@ -1,10 +1,10 @@
-choices = ['rock', 'paper', 'scissors']
+choices = ['ROCK', 'PAPER', 'SCISSORS']
+buttons = document.querySelectorAll('button');
 let winner;
 
-function getRoundWinner(userPlay) {
-  computerPlay = getComputerPlay();
+function getRoundWinner(userPlay, computerPlay=getComputerPlay()) {
   if (computerPlay === userPlay) {
-    return 'tie!';
+    return 'tie';
 
   } 
   else if ((computerPlay === 0 && userPlay === 2) ||
@@ -26,34 +26,44 @@ function getComputerPlay() {
 }
 
 
-let contUser = 0;
-let contComputer = 0;
 
+let countUser = 0;
+let countComputer = 0;
+let count = 0;
 function MD(n) {
-  while (contComputer < Math.ceil(n/2) && contUser < Math.ceil(n/2)) {
-    winner = getRoundWinner(parseInt(prompt()));
+  winner = getRoundWinner(userPlay, computerPlay = getComputerPlay());
 
     if (winner === 'computer') {
-      contComputer++;
+      countComputer++;
+      play = `${choices[computerPlay]} beats ${choices[userPlay]}!`;
     }
 
     else if (winner === 'user') {
-      contUser++;
+      countUser++;
+      play = `${choices[userPlay]} beats ${choices[computerPlay]}!`;
     }
 
-    if (winner != 'tie!') {
-    alert(`${winner} wins!\n${contUser}x${contComputer}`);
+    if (winner != 'tie') {
+    alert(`${winner} wins!\n${play}\n${countUser}x${countComputer}`);
     }
-
+    
     else {
       alert('tie!');
     }
+  count++;
+  if (count === n) {
+
+  (countComputer > countUser) ? alert('computer Wins!'): alert('User Wins!');
+  count = 0; countUser = 0; countComputer = 0;
+
   }
 }
 
-MD(5);
+let userPlay;
 
-if (contComputer > contUser) {alert('computer Wins!')}
-else {alert('User Wins!');}
-
-
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+  userPlay = parseInt(button.id);
+  MD(5);
+})
+})
